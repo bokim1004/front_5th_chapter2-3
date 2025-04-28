@@ -2,8 +2,10 @@ import { Edit2, MessageSquare, Plus, Search, ThumbsDown, ThumbsUp, Trash2 } from
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
+import CommentEditDialog from "@/features/ui/comment/CommentEditDialog"
+import PostAddCardHeader from "@/features/ui/post/PostAddCardHeader"
 import { Button } from "../shared/ui/Button"
-import { Card, CardContent, CardHeader, CardTitle } from "../shared/ui/card"
+import { Card, CardContent } from "../shared/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../shared/ui/dialog"
 import { Input } from "../shared/ui/Input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../shared/ui/select"
@@ -456,15 +458,7 @@ const PostsManager = () => {
 
   return (
     <Card className="w-full max-w-6xl mx-auto">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span>게시물 관리자</span>
-          <Button onClick={() => setShowAddDialog(true)}>
-            <Plus className="w-4 h-4 mr-2" />
-            게시물 추가
-          </Button>
-        </CardTitle>
-      </CardHeader>
+      <PostAddCardHeader />
       <CardContent>
         <div className="flex flex-col gap-4">
           {/* 검색 및 필터 컨트롤 features-post-ui/features-post-model*/}
@@ -624,21 +618,7 @@ const PostsManager = () => {
       </Dialog>
 
       {/* 댓글 수정 대화상자 entities/comment/ui/*/}
-      <Dialog open={showEditCommentDialog} onOpenChange={setShowEditCommentDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>댓글 수정</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Textarea
-              placeholder="댓글 내용"
-              value={selectedComment?.body || ""}
-              onChange={(e) => setSelectedComment({ ...selectedComment, body: e.target.value })}
-            />
-            <Button onClick={updateComment}>댓글 업데이트</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <CommentEditDialog />
 
       {/* 게시물 상세 보기 대화상자  - entities/post/ui/*/}
       <Dialog open={showPostDetailDialog} onOpenChange={setShowPostDetailDialog}>
