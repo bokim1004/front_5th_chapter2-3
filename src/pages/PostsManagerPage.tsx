@@ -1,22 +1,10 @@
 import { Edit2, MessageSquare, Plus, Search, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../shared/ui"
-import { TableBody } from "../shared/ui/table/TableBody"
-import { TableCell } from "../shared/ui/table/TableCell"
-import { TableHead } from "../shared/ui/table/TableHead"
-import { TableHeader } from "../shared/ui/table/TableHeader"
-import { TableRow } from "../shared/ui/table/TableRow"
+
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../shared/ui/dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../shared/ui/select"
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from "../shared/ui/table"
 
 const PostsManager = () => {
   const navigate = useNavigate()
