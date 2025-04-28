@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import CommentEditDialog from "@/features/ui/comment/CommentEditDialog"
 import PostAddCardHeader from "@/features/ui/post/PostAddCardHeader"
 import PostDetailDialog from "@/features/ui/post/PostDetailDialog"
+import PostEditDialog from "@/features/ui/post/PostEditDialog"
 import { Button } from "../shared/ui/Button"
 import { Card, CardContent } from "../shared/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../shared/ui/dialog"
@@ -579,27 +580,7 @@ const PostsManager = () => {
       </Dialog>
 
       {/* 게시물 수정 대화상자    features/post/ui/*/}
-      <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>게시물 수정</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Input
-              placeholder="제목"
-              value={selectedPost?.title || ""}
-              onChange={(e) => setSelectedPost({ ...selectedPost, title: e.target.value })}
-            />
-            <Textarea
-              rows={15}
-              placeholder="내용"
-              value={selectedPost?.body || ""}
-              onChange={(e) => setSelectedPost({ ...selectedPost, body: e.target.value })}
-            />
-            <Button onClick={updatePost}>게시물 업데이트</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <PostEditDialog />
 
       {/* 댓글 추가 대화상자   features/comment/ui/*/}
       <Dialog open={showAddCommentDialog} onOpenChange={setShowAddCommentDialog}>
