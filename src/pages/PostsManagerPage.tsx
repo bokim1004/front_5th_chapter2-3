@@ -2,19 +2,15 @@ import { Edit2, MessageSquare, Plus, Search, ThumbsDown, ThumbsUp, Trash2 } from
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Table,
-  Textarea,
 } from "../shared/ui"
 import { TableBody } from "../shared/ui/table/TableBody"
 import { TableCell } from "../shared/ui/table/TableCell"
