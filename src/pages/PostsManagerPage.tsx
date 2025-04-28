@@ -467,7 +467,7 @@ const PostsManager = () => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">
-          {/* 검색 및 필터 컨트롤 */}
+          {/* 검색 및 필터 컨트롤 features-post-ui/features-post-model*/}
           <div className="flex gap-4">
             <div className="flex-1">
               <div className="relative">
@@ -526,7 +526,7 @@ const PostsManager = () => {
           {/* 게시물 테이블 */}
           {loading ? <div className="flex justify-center p-4">로딩 중...</div> : renderPostTable()}
 
-          {/* 페이지네이션 */}
+          {/* 페이지네이션 features/pagination/ui/ */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <span>표시</span>
@@ -554,7 +554,7 @@ const PostsManager = () => {
         </div>
       </CardContent>
 
-      {/* 게시물 추가 대화상자 */}
+      {/* 게시물 추가 대화상자  features/post/ui*/}
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <DialogContent>
           <DialogHeader>
@@ -583,7 +583,7 @@ const PostsManager = () => {
         </DialogContent>
       </Dialog>
 
-      {/* 게시물 수정 대화상자 */}
+      {/* 게시물 수정 대화상자    features/post/ui/*/}
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
         <DialogContent>
           <DialogHeader>
@@ -606,7 +606,7 @@ const PostsManager = () => {
         </DialogContent>
       </Dialog>
 
-      {/* 댓글 추가 대화상자 */}
+      {/* 댓글 추가 대화상자   features/comment/ui/*/}
       <Dialog open={showAddCommentDialog} onOpenChange={setShowAddCommentDialog}>
         <DialogContent>
           <DialogHeader>
@@ -623,7 +623,7 @@ const PostsManager = () => {
         </DialogContent>
       </Dialog>
 
-      {/* 댓글 수정 대화상자 */}
+      {/* 댓글 수정 대화상자 entities/comment/ui/*/}
       <Dialog open={showEditCommentDialog} onOpenChange={setShowEditCommentDialog}>
         <DialogContent>
           <DialogHeader>
@@ -640,7 +640,7 @@ const PostsManager = () => {
         </DialogContent>
       </Dialog>
 
-      {/* 게시물 상세 보기 대화상자 */}
+      {/* 게시물 상세 보기 대화상자  - entities/post/ui/*/}
       <Dialog open={showPostDetailDialog} onOpenChange={setShowPostDetailDialog}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
@@ -653,7 +653,7 @@ const PostsManager = () => {
         </DialogContent>
       </Dialog>
 
-      {/* 사용자 모달 */}
+      {/* 사용자 모달 - entities/user/ui  */}
       <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
         <DialogContent>
           <DialogHeader>
