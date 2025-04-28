@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 
 import CommentEditDialog from "@/features/ui/comment/CommentEditDialog"
 import PostAddCardHeader from "@/features/ui/post/PostAddCardHeader"
+import PostDetailDialog from "@/features/ui/post/PostDetailDialog"
 import { Button } from "../shared/ui/Button"
 import { Card, CardContent } from "../shared/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../shared/ui/dialog"
@@ -621,17 +622,7 @@ const PostsManager = () => {
       <CommentEditDialog />
 
       {/* 게시물 상세 보기 대화상자  - entities/post/ui/*/}
-      <Dialog open={showPostDetailDialog} onOpenChange={setShowPostDetailDialog}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader>
-            <DialogTitle>{highlightText(selectedPost?.title, searchQuery)}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p>{highlightText(selectedPost?.body, searchQuery)}</p>
-            {renderComments(selectedPost?.id)}
-          </div>
-        </DialogContent>
-      </Dialog>
+      <PostDetailDialog />
 
       {/* 사용자 모달 - entities/user/ui  */}
       <Dialog open={showUserModal} onOpenChange={setShowUserModal}>

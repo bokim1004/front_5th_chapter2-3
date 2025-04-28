@@ -5,7 +5,7 @@ import { Textarea } from "@/shared/ui/TextArea"
 {
   /* 댓글 수정 대화상자 */
 }
-const CommentEditDialog = () => {
+function CommentEditDialog() {
   // showEditCommentDialog,setShowEditCommentDialog,selectedComment,setSelectedComment,updateComment값 필요
   return (
     <Dialog open={showEditCommentDialog} onOpenChange={setShowEditCommentDialog}>

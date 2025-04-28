@@ -2,7 +2,7 @@ import { Button } from "@/shared/ui/Button"
 import { CardHeader, CardTitle } from "@/shared/ui/card"
 import { Plus } from "lucide-react"
 
-const PostAddCardHeader = () => {
+function PostAddCardHeader() {
   //onClick함수는 커스텀 훅으로 가져올 수 있게 하기
   return (
     <CardHeader>
