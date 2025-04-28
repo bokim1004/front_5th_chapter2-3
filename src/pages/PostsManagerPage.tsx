@@ -14,13 +14,13 @@ import {
   SelectTrigger,
   SelectValue,
   Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
   Textarea,
 } from "../shared/ui"
+import { TableBody } from "../shared/ui/table/TableBody"
+import { TableCell } from "../shared/ui/table/TableCell"
+import { TableHead } from "../shared/ui/table/TableHead"
+import { TableHeader } from "../shared/ui/table/TableHeader"
+import { TableRow } from "../shared/ui/table/TableRow"
 
 const PostsManager = () => {
   const navigate = useNavigate()

@@ -4,18 +4,6 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown, X } from "lucide-react"
 import { forwardRef } from "react"
 
-// 텍스트 영역 컴포넌트
-export const Textarea = forwardRef(({ className, ...props }, ref) => {
-  return (
-    <textarea
-      className={`flex min-h-[150px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
-      ref={ref}
-      {...props}
-    />
-  )
-})
-Textarea.displayName = "Textarea"
-
 // 선택 컴포넌트
 export const Select = SelectPrimitive.Root
 export const SelectGroup = SelectPrimitive.Group
@@ -102,42 +90,3 @@ export const DialogTitle = forwardRef(({ className, ...props }, ref) => (
 DialogTitle.displayName = DialogPrimitive.Title.displayName
 
 // 테이블 컴포넌트
-export const Table = forwardRef(({ className, ...props }, ref) => (
-  <div className="w-full overflow-auto">
-    <table ref={ref} className={`table-fixed w-full caption-bottom text-sm ${className}`} {...props} />
-  </div>
-))
-Table.displayName = "Table"
-
-export const TableHeader = forwardRef(({ className, ...props }, ref) => (
-  <thead ref={ref} className={`[&_tr]:border-b ${className}`} {...props} />
-))
-TableHeader.displayName = "TableHeader"
-
-export const TableBody = forwardRef(({ className, ...props }, ref) => (
-  <tbody ref={ref} className={`[&_tr:last-child]:border-0 ${className}`} {...props} />
-))
-TableBody.displayName = "TableBody"
-
-export const TableRow = forwardRef(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
-    className={`border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted h-14 ${className}`}
-    {...props}
-  />
-))
-TableRow.displayName = "TableRow"
-
-export const TableHead = forwardRef(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={`h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 ${className}`}
-    {...props}
-  />
-))
-TableHead.displayName = "TableHead"
-
-export const TableCell = forwardRef(({ className, ...props }, ref) => (
-  <td ref={ref} className={`p-2 align-middle [&:has([role=checkbox])]:pr-0 ${className}`} {...props} />
-))
-TableCell.displayName = "TableCell"
