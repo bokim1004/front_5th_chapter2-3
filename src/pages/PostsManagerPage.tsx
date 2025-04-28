@@ -2,6 +2,7 @@ import { Edit2, MessageSquare, Plus, ThumbsDown, ThumbsUp, Trash2 } from "lucide
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
+import UserInfoModal from "@/entities/user/ui/UserInfoModal"
 import CommentAddDialog from "@/features/comment/ui/CommentAddDialog"
 import CommentEditDialog from "@/features/comment/ui/CommentEditDialog"
 import PaginationControls from "@/features/pagenation/ui/PaginationControls"
@@ -12,7 +13,6 @@ import PostEditDialog from "@/features/post/ui/PostEditDialog"
 import PostSearchFilter from "@/features/post/ui/PostSearchFilter"
 import { Button } from "../shared/ui/Button"
 import { Card, CardContent } from "../shared/ui/card"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../shared/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../shared/ui/table"
 
 const PostsManager = () => {
@@ -491,38 +491,7 @@ const PostsManager = () => {
       <PostDetailDialog />
 
       {/* 사용자 모달 - entities/user/ui  */}
-      <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>사용자 정보</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <img src={selectedUser?.image} alt={selectedUser?.username} className="w-24 h-24 rounded-full mx-auto" />
-            <h3 className="text-xl font-semibold text-center">{selectedUser?.username}</h3>
-            <div className="space-y-2">
-              <p>
-                <strong>이름:</strong> {selectedUser?.firstName} {selectedUser?.lastName}
-              </p>
-              <p>
-                <strong>나이:</strong> {selectedUser?.age}
-              </p>
-              <p>
-                <strong>이메일:</strong> {selectedUser?.email}
-              </p>
-              <p>
-                <strong>전화번호:</strong> {selectedUser?.phone}
-              </p>
-              <p>
-                <strong>주소:</strong> {selectedUser?.address?.address}, {selectedUser?.address?.city},{" "}
-                {selectedUser?.address?.state}
-              </p>
-              <p>
-                <strong>직장:</strong> {selectedUser?.company?.name} - {selectedUser?.company?.title}
-              </p>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <UserInfoModal />
     </Card>
   )
 }
