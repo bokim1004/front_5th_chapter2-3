@@ -2,6 +2,7 @@ import { Edit2, MessageSquare, Plus, Search, ThumbsDown, ThumbsUp, Trash2 } from
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
+import CommentAddDialog from "@/features/ui/comment/CommentAddDialog"
 import CommentEditDialog from "@/features/ui/comment/CommentEditDialog"
 import PostAddCardHeader from "@/features/ui/post/PostAddCardHeader"
 import PostDetailDialog from "@/features/ui/post/PostDetailDialog"
@@ -583,21 +584,7 @@ const PostsManager = () => {
       <PostEditDialog />
 
       {/* 댓글 추가 대화상자   features/comment/ui/*/}
-      <Dialog open={showAddCommentDialog} onOpenChange={setShowAddCommentDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>새 댓글 추가</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Textarea
-              placeholder="댓글 내용"
-              value={newComment.body}
-              onChange={(e) => setNewComment({ ...newComment, body: e.target.value })}
-            />
-            <Button onClick={addComment}>댓글 추가</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <CommentAddDialog />
 
       {/* 댓글 수정 대화상자 entities/comment/ui/*/}
       <CommentEditDialog />
