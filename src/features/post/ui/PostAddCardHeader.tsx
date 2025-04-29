@@ -1,9 +1,11 @@
+import { usePostStore } from "@/entities/post/model/PostStore"
 import { Button } from "@/shared/ui/Button"
 import { CardHeader, CardTitle } from "@/shared/ui/card"
 import { Plus } from "lucide-react"
 
 export function PostAddCardHeader() {
-  //onClick함수는 커스텀 훅으로 가져올 수 있게 하기
+  const { setShowAddDialog } = usePostStore()
+
   return (
     <CardHeader>
       <CardTitle className="flex items-center justify-between">

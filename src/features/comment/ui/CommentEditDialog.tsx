@@ -1,3 +1,4 @@
+import { useCommentStore } from "@/entities/comment/model/CommentStore"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Textarea } from "@/shared/ui/TextArea"
@@ -6,15 +7,15 @@ import { Textarea } from "@/shared/ui/TextArea"
   /* 댓글 수정 대화상자 */
 }
 export function CommentEditDialog() {
-  // showEditCommentDialog,setShowEditCommentDialog,selectedComment,setSelectedComment,updateComment값 필요
+  const { showEditCommentDialog, setShowEditCommentDialog, selectedComment, setSelectedComment } = useCommentStore()
 
   // 댓글 업데이트
   const updateComment = async () => {
     try {
-      const response = await fetch(`/api/comments/${selectedComment.id}`, {
+      const response = await fetch(`/api/comments/${Number(selectedComment?.id)}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body: selectedComment.body }),
+        body: JSON.stringify({ body: selectedComment?.body ?? "" }),
       })
       const data = await response.json()
       setComments((prev) => ({

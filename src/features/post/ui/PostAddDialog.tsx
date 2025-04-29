@@ -1,10 +1,11 @@
+import { usePostStore } from "@/entities/post/model/PostStore"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Input } from "@/shared/ui/Input"
 import { Textarea } from "@/shared/ui/TextArea"
 
 export function PostAddDialog() {
-  //showAddDialog,setShowAddDialog,newPost,setNewPost,addPost
+  const { showAddDialog, setShowAddDialog, newPost, setNewPost } = usePostStore()
   // 게시물 추가
   const addPost = async () => {
     try {

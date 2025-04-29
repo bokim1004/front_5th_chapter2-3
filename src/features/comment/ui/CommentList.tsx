@@ -1,8 +1,9 @@
+import { useCommentStore } from "@/entities/comment/model/CommentStore"
 import { Button } from "@/shared/ui/Button"
 import { Edit2, Plus, ThumbsUp, Trash2 } from "lucide-react"
 
-export function CommentList(postId: string) {
-  //setNewComment,setShowAddCommentDialog,comments,setSelectedComment,setShowEditCommentDialog,deleteComment
+export function CommentList(postId: number) {
+  const { setNewComment, setShowAddCommentDialog, setSelectedComment, setShowEditCommentDialog } = useCommentStore()
 
   // 댓글 삭제
   const deleteComment = async (id, postId) => {

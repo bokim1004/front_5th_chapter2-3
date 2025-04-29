@@ -1,9 +1,10 @@
+import { useCommentStore } from "@/entities/comment/model/CommentStore"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Textarea } from "@/shared/ui/TextArea"
 
 export function CommentAddDialog() {
-  //showAddCommentDialog,setShowAddCommentDialog,newComment,setNewComment,addComment필요
+  const { showAddCommentDialog, setShowAddCommentDialog, newComment, setNewComment } = useCommentStore()
 
   // 댓글 추가
   const addComment = async () => {

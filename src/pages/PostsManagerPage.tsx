@@ -3,18 +3,10 @@ import { useLocation } from "react-router-dom"
 
 import UserInfoModal from "@/entities/user/ui/UserInfoModal"
 import { CommentAddDialog, CommentEditDialog } from "@/features/comment/ui"
-import {
-  PostAddCardHeader,
-  PostAddDialog,
-  PostDetailDialog,
-  PostEditDialog,
-  PostSearchFilter,
-  PostTable,
-} from "@/features/post/ui"
+import { PostAddCardHeader, PostAddDialog, PostDetailDialog, PostEditDialog } from "@/features/post/ui"
 
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
-import PaginationControls from "@/features/post/ui/PostPaginationControls"
-import { Loading } from "@/shared/ui/Loading"
+import { PostListContent } from "@/features/post/ui/PostListContent"
 import { Card, CardContent } from "../shared/ui/card"
 
 const PostsManager = () => {
@@ -126,33 +118,18 @@ const PostsManager = () => {
     <Card className="w-full max-w-6xl mx-auto">
       <PostAddCardHeader />
       <CardContent>
-        <div className="flex flex-col gap-4">
-          {/* 검색 및 필터 컨트롤 features-post-ui/features-post-model*/}
-          <PostSearchFilter />
-
-          {/* 게시물 테이블 */}
-          {loading ? <Loading /> : <PostTable />}
-
-          {/* 페이지네이션 features/pagination/ui/ */}
-          <PaginationControls />
-        </div>
+        <PostListContent />
       </CardContent>
-
       {/* 게시물 추가 대화상자  features/post/ui*/}
       <PostAddDialog />
-
       {/* 게시물 수정 대화상자    features/post/ui/*/}
       <PostEditDialog />
-
       {/* 댓글 추가 대화상자   features/comment/ui/*/}
       <CommentAddDialog />
-
       {/* 댓글 수정 대화상자 entities/comment/ui/*/}
       <CommentEditDialog />
-
       {/* 게시물 상세 보기 대화상자  - entities/post/ui/*/}
       <PostDetailDialog />
-
       {/* 사용자 모달 - entities/user/ui  */}
       <UserInfoModal />
     </Card>
