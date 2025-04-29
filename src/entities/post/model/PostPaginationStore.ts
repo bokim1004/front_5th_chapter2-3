@@ -3,6 +3,7 @@ import { create } from "zustand"
 interface PostPaginationStore {
   skip: number
   limit: number
+  total: number
   searchQuery: string
   sortBy: string
   sortOrder: "asc" | "desc"
@@ -10,6 +11,7 @@ interface PostPaginationStore {
 
   setSkip: (value: number) => void
   setLimit: (value: number) => void
+  setTotal: (value: number) => void
   setSearchQuery: (value: string) => void
   setSortBy: (value: string) => void
   setSortOrder: (value: "asc" | "desc") => void
@@ -19,6 +21,7 @@ interface PostPaginationStore {
 export const usePostPaginationStore = create<PostPaginationStore>((set) => ({
   skip: 0,
   limit: 10,
+  total: 0,
   searchQuery: "",
   sortBy: "",
   sortOrder: "asc",
@@ -26,6 +29,7 @@ export const usePostPaginationStore = create<PostPaginationStore>((set) => ({
 
   setSkip: (value) => set({ skip: value }),
   setLimit: (value) => set({ limit: value }),
+  setTotal: (value) => set({ total: value }),
   setSearchQuery: (value) => set({ searchQuery: value }),
   setSortBy: (value) => set({ sortBy: value }),
   setSortOrder: (value) => set({ sortOrder: value }),

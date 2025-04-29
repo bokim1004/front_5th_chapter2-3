@@ -1,8 +1,10 @@
+import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { Button } from "@/shared/ui/Button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 
 function PostPaginationControls() {
-  //limit,skip,total,setSkip
+  const { limit, skip, total, setSkip, setLimit } = usePostPaginationStore()
+
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-2">

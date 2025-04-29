@@ -1,10 +1,28 @@
+import { usePostStore } from "@/entities/post/model/PostStore"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Input } from "@/shared/ui/Input"
 import { Textarea } from "@/shared/ui/TextArea"
 
 export function PostEditDialog() {
-  //showEditDialog,setShowEditDialog,selectedPost,setSelectedPost,updatePost
+  const { showEditDialog, setShowEditDialog, selectedPost, setSelectedPost } = usePostStore()
+
+  // 게시물 업데이트
+  const updatePost = async () => {
+    try {
+      const response = await fetch(`/api/posts/${selectedPost?.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(selectedPost),
+      })
+      const data = await response.json()
+      setPosts(posts.map((post) => (post.id === data.id ? data : post)))
+      setShowEditDialog(false)
+    } catch (error) {
+      console.error("게시물 업데이트 오류:", error)
+    }
+  }
+
   return (
     <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
       <DialogContent>
