@@ -14,6 +14,7 @@ import {
 
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import PaginationControls from "@/features/post/ui/PostPaginationControls"
+import { Loading } from "@/shared/ui/Loading"
 import { Card, CardContent } from "../shared/ui/card"
 
 const PostsManager = () => {
@@ -130,7 +131,7 @@ const PostsManager = () => {
           <PostSearchFilter />
 
           {/* 게시물 테이블 */}
-          {loading ? <div className="flex justify-center p-4">로딩 중...</div> : <PostTable />}
+          {loading ? <Loading /> : <PostTable />}
 
           {/* 페이지네이션 features/pagination/ui/ */}
           <PaginationControls />
