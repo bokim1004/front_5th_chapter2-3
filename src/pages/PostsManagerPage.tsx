@@ -41,8 +41,8 @@ const PostsManager = () => {
   const [showAddCommentDialog, setShowAddCommentDialog] = useState(false)
   const [showEditCommentDialog, setShowEditCommentDialog] = useState(false)
   //const [showPostDetailDialog, setShowPostDetailDialog] = useState(false)
-  const [showUserModal, setShowUserModal] = useState(false)
-  const [selectedUser, setSelectedUser] = useState(null)
+  // const [showUserModal, setShowUserModal] = useState(false)
+  // const [selectedUser, setSelectedUser] = useState(null)
 
   // URL 업데이트 함수
   const updateURL = () => {
