@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/di
 import { Input } from "@/shared/ui/Input"
 import { Textarea } from "@/shared/ui/TextArea"
 
-function PostEditDialog() {
+export function PostEditDialog() {
   //showEditDialog,setShowEditDialog,selectedPost,setSelectedPost,updatePost
   return (
     <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
@@ -29,4 +29,3 @@ function PostEditDialog() {
     </Dialog>
   )
 }
-export default PostEditDialog

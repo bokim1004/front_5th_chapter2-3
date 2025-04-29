@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/di
 import { Input } from "@/shared/ui/Input"
 import { Textarea } from "@/shared/ui/TextArea"
 
-function PostAddDialog() {
+export function PostAddDialog() {
   //showAddDialog,setShowAddDialog,newPost,setNewPost,addPost
   return (
     <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
@@ -35,5 +35,3 @@ function PostAddDialog() {
     </Dialog>
   )
 }
-
-export default PostAddDialog

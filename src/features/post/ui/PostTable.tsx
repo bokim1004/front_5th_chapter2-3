@@ -2,7 +2,7 @@ import { Button } from "@/shared/ui/Button"
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table"
 import { Edit2, MessageSquare, Table, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 
-function PostTable() {
+export function PostTable() {
   //posts,highlightText,selectedTag,setSelectedTag,updateURL,openUserModal,openPostDetail,setSelectedPost,setShowEditDialog,deletePost
   return (
     <Table>
@@ -83,5 +83,3 @@ function PostTable() {
     </Table>
   )
 }
-
-export default PostTable

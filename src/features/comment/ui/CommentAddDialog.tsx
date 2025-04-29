@@ -2,7 +2,7 @@ import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Textarea } from "@/shared/ui/TextArea"
 
-function CommentAddDialog() {
+export function CommentAddDialog() {
   //showAddCommentDialog,setShowAddCommentDialog,newComment,setNewComment,addComment필요
   return (
     <Dialog open={showAddCommentDialog} onOpenChange={setShowAddCommentDialog}>
@@ -22,4 +22,3 @@ function CommentAddDialog() {
     </Dialog>
   )
 }
-export default CommentAddDialog

@@ -2,15 +2,17 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
 import UserInfoModal from "@/entities/user/ui/UserInfoModal"
-import CommentAddDialog from "@/features/comment/ui/CommentAddDialog"
-import CommentEditDialog from "@/features/comment/ui/CommentEditDialog"
-import PaginationControls from "@/features/pagenation/ui/PaginationControls"
-import PostAddCardHeader from "@/features/post/ui/PostAddCardHeader"
-import PostAddDialog from "@/features/post/ui/PostAddDialog"
-import PostDetailDialog from "@/features/post/ui/PostDetailDialog"
-import PostEditDialog from "@/features/post/ui/PostEditDialog"
-import PostSearchFilter from "@/features/post/ui/PostSearchFilter"
-import PostTable from "@/features/post/ui/PostTable"
+import { CommentAddDialog, CommentEditDialog } from "@/features/comment/ui"
+import {
+  PostAddCardHeader,
+  PostAddDialog,
+  PostDetailDialog,
+  PostEditDialog,
+  PostSearchFilter,
+  PostTable,
+} from "@/features/post/ui"
+
+import PaginationControls from "@/features/pagination/ui/PaginationControls"
 import { Card, CardContent } from "../shared/ui/card"
 
 const PostsManager = () => {

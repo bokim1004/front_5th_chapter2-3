@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/di
 {
   /* 게시물 상세 보기 대화상자 */
 }
-function PostDetailDialog() {
+export function PostDetailDialog() {
   //highlightText,selectedPost,showPostDetailDialog,setShowPostDetailDialog,searchQuery값 필요
   return (
     <Dialog open={showPostDetailDialog} onOpenChange={setShowPostDetailDialog}>
@@ -20,5 +20,3 @@ function PostDetailDialog() {
     </Dialog>
   )
 }
-
-export default PostDetailDialog

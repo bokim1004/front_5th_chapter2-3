@@ -2,7 +2,7 @@ import { Input } from "@/shared/ui/Input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { Search } from "lucide-react"
 
-function PostSearchFilter() {
+export function PostSearchFilter() {
   //searchQuery,setSearchQuery,searchPosts,selectedTag,setSelectedTag,fetchPostsByTag,updateURL,tags,sortBy,setSortBy,sortOrder,setSortOrder
   return (
     <div className="flex gap-4">
@@ -61,4 +61,3 @@ function PostSearchFilter() {
     </div>
   )
 }
-export default PostSearchFilter

@@ -1,7 +1,7 @@
 import { Button } from "@/shared/ui/Button"
 import { Edit2, Plus, ThumbsUp, Trash2 } from "lucide-react"
 
-function CommentList(postId: string) {
+export function CommentList(postId: string) {
   //setNewComment,setShowAddCommentDialog,comments,setSelectedComment,setShowEditCommentDialog,deleteComment
   return (
     <div className="mt-2">
@@ -50,5 +50,3 @@ function CommentList(postId: string) {
     </div>
   )
 }
-
-export default CommentList
