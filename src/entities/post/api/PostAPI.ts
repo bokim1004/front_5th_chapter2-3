@@ -1,3 +1,4 @@
+import { Post } from "@/entities/post/model/PostType"
 import { axiosInstance } from "@/shared/api/axiosInstance"
 import axios from "axios"
 
@@ -12,5 +13,10 @@ export const fetchTags = async () => {
 
 export const createPost = async (post: { title: string; body: string; userId: number }) => {
   const response = await axiosInstance.post("/api/posts/add", post)
+  return response.data
+}
+
+export const updatePost = async (post: Post) => {
+  const response = await axiosInstance.put(`/api/posts/${post.id}`, post)
   return response.data
 }

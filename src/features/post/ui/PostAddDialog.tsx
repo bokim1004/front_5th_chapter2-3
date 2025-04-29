@@ -1,5 +1,5 @@
 import { usePostStore } from "@/entities/post/model/PostStore"
-import { useAddPostMutation } from "@/features/post/api/useAddPostMutation"
+import { usePostAddMutation } from "@/features/post/api/usePostAddMutation"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Input } from "@/shared/ui/Input"
@@ -8,7 +8,7 @@ import { Textarea } from "@/shared/ui/TextArea"
 export function PostAddDialog() {
   const { showAddDialog, setShowAddDialog, newPost, setNewPost } = usePostStore()
 
-  const { mutate: addPost } = useAddPostMutation()
+  const { mutate: addPost } = usePostAddMutation()
 
   const handleAddPost = () => {
     addPost(newPost, {
