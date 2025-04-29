@@ -1,9 +1,16 @@
+import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
+import { usePostStore } from "@/entities/post/model/PostStore"
+import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
+import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table"
 import { Edit2, MessageSquare, Table, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 
 export function PostTable() {
-  //posts,highlightText,selectedTag,setSelectedTag,updateURL,openUserModal,openPostDetail,setSelectedPost,setShowEditDialog,deletePost
+  const { selectedTag, setSelectedTag, searchQuery, limit, skip, sortBy, sortOrder } = usePostPaginationStore()
+  const { setSelectedPost, setShowEditDialog } = usePostStore()
+  const updateURL = usePostUpdateURL()
+
   return (
     <Table>
       <TableHeader>
@@ -21,7 +28,7 @@ export function PostTable() {
             <TableCell>{post.id}</TableCell>
             <TableCell>
               <div className="space-y-1">
-                <div>{highlightText(post.title, searchQuery)}</div>
+                <div>{HighlightText(post.title, searchQuery)}</div>
 
                 <div className="flex flex-wrap gap-1">
                   {post.tags?.map((tag) => (

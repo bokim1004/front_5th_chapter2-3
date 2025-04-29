@@ -1,7 +1,7 @@
 import { Button } from "@/shared/ui/Button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 
-function PaginationControls() {
+function PostPaginationControls() {
   //limit,skip,total,setSkip
   return (
     <div className="flex justify-between items-center">
@@ -31,4 +31,4 @@ function PaginationControls() {
   )
 }
 
-export default PaginationControls
+export default PostPaginationControls

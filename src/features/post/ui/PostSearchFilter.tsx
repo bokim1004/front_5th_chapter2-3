@@ -1,9 +1,15 @@
+import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
+import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { Input } from "@/shared/ui/Input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { Search } from "lucide-react"
 
 export function PostSearchFilter() {
-  //searchQuery,setSearchQuery,searchPosts,selectedTag,setSelectedTag,fetchPostsByTag,updateURL,tags,sortBy,setSortBy,sortOrder,setSortOrder
+  const { searchQuery, setSearchQuery, sortBy, setSortBy, sortOrder, setSortOrder, selectedTag, setSelectedTag } =
+    usePostPaginationStore()
+
+  const updateURL = usePostUpdateURL()
+
   return (
     <div className="flex gap-4">
       <div className="flex-1">

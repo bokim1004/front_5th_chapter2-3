@@ -12,7 +12,7 @@ import {
   PostTable,
 } from "@/features/post/ui"
 
-import PaginationControls from "@/features/pagination/ui/PaginationControls"
+import PaginationControls from "@/features/post/ui/PostPaginationControls"
 import { Card, CardContent } from "../shared/ui/card"
 
 const PostsManager = () => {
@@ -287,7 +287,7 @@ const PostsManager = () => {
     } else {
       fetchPosts()
     }
-    updateURL()
+    updateURL({ skip, limit, searchQuery, sortBy, sortOrder, selectedTag }, navigate)
   }, [skip, limit, sortBy, sortOrder, selectedTag])
 
   useEffect(() => {
