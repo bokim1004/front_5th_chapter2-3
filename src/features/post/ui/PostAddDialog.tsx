@@ -1,4 +1,5 @@
 import { usePostStore } from "@/entities/post/model/PostStore"
+import { useAddPostMutation } from "@/features/post/api/useAddPostMutation"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Input } from "@/shared/ui/Input"
@@ -6,21 +7,16 @@ import { Textarea } from "@/shared/ui/TextArea"
 
 export function PostAddDialog() {
   const { showAddDialog, setShowAddDialog, newPost, setNewPost } = usePostStore()
-  // 게시물 추가
-  const addPost = async () => {
-    try {
-      const response = await fetch("/api/posts/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPost),
-      })
-      const data = await response.json()
-      setPosts([data, ...posts])
-      setShowAddDialog(false)
-      setNewPost({ title: "", body: "", userId: 1 })
-    } catch (error) {
-      console.error("게시물 추가 오류:", error)
-    }
+
+  const { mutate: addPost } = useAddPostMutation()
+
+  const handleAddPost = () => {
+    addPost(newPost, {
+      onSuccess: () => {
+        setShowAddDialog(false)
+        setNewPost({ title: "", body: "", userId: 1 })
+      },
+    })
   }
 
   return (
@@ -47,7 +43,7 @@ export function PostAddDialog() {
             value={newPost.userId}
             onChange={(e) => setNewPost({ ...newPost, userId: Number(e.target.value) })}
           />
-          <Button onClick={addPost}>게시물 추가</Button>
+          <Button onClick={handleAddPost}>게시물 추가</Button>
         </div>
       </DialogContent>
     </Dialog>

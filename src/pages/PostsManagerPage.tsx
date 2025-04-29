@@ -16,7 +16,6 @@ const PostsManager = () => {
   const [posts, setPosts] = useState([])
 
   const [loading, setLoading] = useState(false)
-  const [tags, setTags] = useState([])
   const [comments, setComments] = useState({})
 
   const updateURL = usePostUpdateURL()
