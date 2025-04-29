@@ -7,7 +7,7 @@ interface Post {
   userId: number
 }
 
-interface PostFormStore {
+interface PostStore {
   newPost: Post
   selectedPost: Post | null
   showAddDialog: boolean
@@ -21,7 +21,7 @@ interface PostFormStore {
   setShowPostDetailDialog: (visible: boolean) => void
 }
 
-export const usePostFormStore = create<PostFormStore>((set) => ({
+export const usePostStore = create<PostStore>((set) => ({
   newPost: { title: "", body: "", userId: 1 },
   selectedPost: null,
   showAddDialog: false,
