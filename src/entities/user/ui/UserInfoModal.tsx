@@ -1,7 +1,8 @@
+import { useUserStore } from "@/entities/user/model/UserStore"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 
 function UserInfoModal() {
-  //showUserModal,setShowUserModal,selectedUser
+  const { showUserModal, setShowUserModal, selectedUser } = useUserStore()
   return (
     <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
       <DialogContent>

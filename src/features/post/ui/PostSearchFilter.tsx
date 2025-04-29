@@ -1,6 +1,8 @@
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
+import { useTagsQuery } from "@/features/post/api/useTagQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { Input } from "@/shared/ui/Input"
+import { Loading } from "@/shared/ui/Loading"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { Search } from "lucide-react"
 
@@ -9,6 +11,10 @@ export function PostSearchFilter() {
     usePostPaginationStore()
 
   const updateURL = usePostUpdateURL()
+  const { data: tags = [], isLoading } = useTagsQuery()
+  if (isLoading) {
+    return <Loading />
+  }
 
   // 게시물 검색
   const searchPosts = async () => {

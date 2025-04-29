@@ -14,7 +14,6 @@ const PostsManager = () => {
 
   // 상태 관리
   const [posts, setPosts] = useState([])
-  const [total, setTotal] = useState(0)
 
   const [loading, setLoading] = useState(false)
   const [tags, setTags] = useState([])
@@ -52,17 +51,6 @@ const PostsManager = () => {
       })
   }
 
-  // 태그 가져오기
-  const fetchTags = async () => {
-    try {
-      const response = await fetch("/api/posts/tags")
-      const data = await response.json()
-      setTags(data)
-    } catch (error) {
-      console.error("태그 가져오기 오류:", error)
-    }
-  }
-
   // 태그별 게시물 가져오기
   const fetchPostsByTag = async (tag) => {
     if (!tag || tag === "all") {
@@ -90,10 +78,6 @@ const PostsManager = () => {
     }
     setLoading(false)
   }
-
-  useEffect(() => {
-    fetchTags()
-  }, [])
 
   useEffect(() => {
     if (selectedTag) {
