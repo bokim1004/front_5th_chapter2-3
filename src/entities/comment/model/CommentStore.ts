@@ -1,15 +1,5 @@
 import { create } from "zustand"
-
-interface Comment {
-  id: number
-  body: string
-  postId: number
-  userId: number
-  likes: number
-  user: {
-    username: string
-  }
-}
+import { Comment } from "./CommentType"
 
 interface CommentStore {
   newComment: {

@@ -1,11 +1,5 @@
 import { create } from "zustand"
-
-interface Post {
-  id?: number
-  title: string
-  body: string
-  userId: number
-}
+import { Post } from "./PostType"
 
 interface PostStore {
   newPost: Post
