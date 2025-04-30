@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 
 import UserInfoModal from "@/entities/user/ui/UserInfoModal"
 import { CommentAddDialog, CommentEditDialog } from "@/features/comment/ui"
 import { PostAddCardHeader, PostAddDialog, PostDetailDialog, PostEditDialog } from "@/features/post/ui"
 
+import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { PostListContent } from "@/features/post/ui/PostListContent"
 import { Card, CardContent } from "../shared/ui/card"
@@ -12,78 +13,20 @@ import { Card, CardContent } from "../shared/ui/card"
 const PostsManager = () => {
   const location = useLocation()
 
-  // 상태 관리
-  const [posts, setPosts] = useState([])
-
-  const [loading, setLoading] = useState(false)
-
   const updateURL = usePostUpdateURL()
-
-  // 게시물 가져오기
-  const fetchPosts = () => {
-    setLoading(true)
-    let postsData
-    let usersData
-
-    fetch(`/api/posts?limit=${limit}&skip=${skip}`)
-      .then((response) => response.json())
-      .then((data) => {
-        postsData = data
-        return fetch("/api/users?limit=0&select=username,image")
-      })
-      .then((response) => response.json())
-
-      .then((users) => {
-        usersData = users.users
-        const postsWithUsers = postsData.posts.map((post) => ({
-          ...post,
-          author: usersData.find((user) => user.id === post.userId),
-        }))
-        setPosts(postsWithUsers)
-        setTotal(postsData.total)
-      })
-      .catch((error) => {
-        console.error("게시물 가져오기 오류:", error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }
-
-  // 태그별 게시물 가져오기
-  const fetchPostsByTag = async (tag) => {
-    if (!tag || tag === "all") {
-      fetchPosts()
-      return
-    }
-    setLoading(true)
-    try {
-      const [postsResponse, usersResponse] = await Promise.all([
-        fetch(`/api/posts/tag/${tag}`),
-        fetch("/api/users?limit=0&select=username,image"),
-      ])
-      const postsData = await postsResponse.json()
-      const usersData = await usersResponse.json()
-
-      const postsWithUsers = postsData.posts.map((post) => ({
-        ...post,
-        author: usersData.users.find((user) => user.id === post.userId),
-      }))
-
-      setPosts(postsWithUsers)
-      setTotal(postsData.total)
-    } catch (error) {
-      console.error("태그별 게시물 가져오기 오류:", error)
-    }
-    setLoading(false)
-  }
+  const { selectedTag, limit, skip, sortBy, sortOrder } = usePostPaginationStore()
+  // const { data, isLoading, isError } = usePostsByTagQuery({
+  //   tag: selectedTag,
+  //   limit,
+  //   skip,
+  // })
 
   useEffect(() => {
-    if (selectedTag) {
-      fetchPostsByTag(selectedTag)
-    } else {
-      fetchPosts()
-    }
+    // if (selectedTag) {
+    //   fetchPostsByTag(selectedTag)
+    // } else {
+    //   fetchPosts()
+    // }
     updateURL()
   }, [skip, limit, sortBy, sortOrder, selectedTag])
 
