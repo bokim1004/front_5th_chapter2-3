@@ -25,6 +25,6 @@ export const likeComment = async ({ id, likes }: { id: number; likes: number }) 
 }
 
 export const fetchComments = async (postId: number): Promise<Comment[]> => {
-  const response = await axios.get(`/api/comments/${postId}`)
+  const response = await axios.get(`/api/comments/post/${postId}`)
   return response.data
 }
