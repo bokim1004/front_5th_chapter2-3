@@ -1,10 +1,16 @@
 import { useCommentStore } from "@/entities/comment/model/CommentStore"
+import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { useDeleteComment } from "@/features/comment/api/useCommentDeleteMutation"
+import { useLikeComment } from "@/features/comment/api/useCommentLikeMutation"
+import { useComments } from "@/features/comment/api/useCommentQuery"
+import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
 import { Edit2, Plus, ThumbsUp, Trash2 } from "lucide-react"
 
 export function CommentList(postId: number) {
-  const { setNewComment, setShowAddCommentDialog, setSelectedComment, setShowEditCommentDialog } = useCommentStore()
+  const { searchQuery } = usePostPaginationStore()
+  const { newComment, setNewComment, setShowAddCommentDialog, setSelectedComment, setShowEditCommentDialog } =
+    useCommentStore()
 
   // 댓글 삭제
 
@@ -13,25 +19,34 @@ export function CommentList(postId: number) {
     deleteCommentMutate({ id, postId })
   }
 
-  // 댓글 좋아요
-  const likeComment = async (id, postId) => {
-    try {
-      const response = await fetch(`/api/comments/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ likes: comments[postId].find((c) => c.id === id).likes + 1 }),
-      })
-      const data = await response.json()
-      setComments((prev) => ({
-        ...prev,
-        [postId]: prev[postId].map((comment) =>
-          comment.id === data.id ? { ...data, likes: comment.likes + 1 } : comment,
-        ),
-      }))
-    } catch (error) {
-      console.error("댓글 좋아요 오류:", error)
-    }
+  const { mutate: likeCommentMutate } = useLikeComment()
+
+  const { data: comments = [] } = useComments(postId)
+
+  const handleLike = (id: number) => {
+    const currentLikes = comments.find((c) => c.id === id)?.likes ?? 0
+    likeCommentMutate({ id, likes: currentLikes })
   }
+
+  // 댓글 좋아요
+  // const likeComment = async (id, postId) => {
+  //   try {
+  //     const response = await fetch(`/api/comments/${id}`, {
+  //       method: "PATCH",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ likes: comments[postId].find((c) => c.id === id).likes + 1 }),
+  //     })
+  //     const data = await response.json()
+  //     setComments((prev) => ({
+  //       ...prev,
+  //       [postId]: prev[postId].map((comment) =>
+  //         comment.id === data.id ? { ...data, likes: comment.likes + 1 } : comment,
+  //       ),
+  //     }))
+  //   } catch (error) {
+  //     console.error("댓글 좋아요 오류:", error)
+  //   }
+  // }
 
   return (
     <div className="mt-2">
@@ -40,7 +55,10 @@ export function CommentList(postId: number) {
         <Button
           size="sm"
           onClick={() => {
-            setNewComment((prev) => ({ ...prev, postId }))
+            setNewComment({
+              ...newComment,
+              postId,
+            })
             setShowAddCommentDialog(true)
           }}
         >
@@ -49,14 +67,14 @@ export function CommentList(postId: number) {
         </Button>
       </div>
       <div className="space-y-1">
-        {comments[postId]?.map((comment) => (
+        {comments?.map((comment) => (
           <div key={comment.id} className="flex items-center justify-between text-sm border-b pb-1">
             <div className="flex items-center space-x-2 overflow-hidden">
               <span className="font-medium truncate">{comment.user.username}:</span>
-              <span className="truncate">{highlightText(comment.body, searchQuery)}</span>
+              <span className="truncate">{HighlightText(comment.body, searchQuery)}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Button variant="ghost" size="sm" onClick={() => likeComment(comment.id, postId)}>
+              <Button variant="ghost" size="sm" onClick={() => handleLike(comment.id)}>
                 <ThumbsUp className="w-3 h-3" />
                 <span className="ml-1 text-xs">{comment.likes}</span>
               </Button>
