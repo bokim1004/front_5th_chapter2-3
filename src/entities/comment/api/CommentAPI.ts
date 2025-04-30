@@ -1,4 +1,9 @@
-import { Comment, DeleteCommentParams, NewComment, UpdateCommentParams } from "@/entities/comment/model/CommentType"
+import {
+  CommentsResponse,
+  DeleteCommentParams,
+  NewComment,
+  UpdateCommentParams,
+} from "@/entities/comment/model/CommentType"
 import { axiosInstance } from "@/shared/api/axiosInstance"
 import axios from "axios"
 
@@ -24,7 +29,7 @@ export const likeComment = async ({ id, likes }: { id: number; likes: number }) 
   return response.data
 }
 
-export const fetchComments = async (postId: number): Promise<Comment[]> => {
+export const fetchComments = async (postId: number): Promise<CommentsResponse> => {
   const response = await axios.get(`/api/comments/post/${postId}`)
   return response.data
 }

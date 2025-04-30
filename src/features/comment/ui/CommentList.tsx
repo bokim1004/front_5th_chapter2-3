@@ -7,7 +7,7 @@ import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
 import { Edit2, Plus, ThumbsUp, Trash2 } from "lucide-react"
 
-export function CommentList(postId: number) {
+export function CommentList({ postId }: { postId: number }) {
   const { searchQuery } = usePostPaginationStore()
   const { newComment, setNewComment, setShowAddCommentDialog, setSelectedComment, setShowEditCommentDialog } =
     useCommentStore()
@@ -21,32 +21,13 @@ export function CommentList(postId: number) {
 
   const { mutate: likeCommentMutate } = useLikeComment()
 
-  const { data: comments = [] } = useComments(postId)
+  const { data } = useComments(postId)
+  const comments = data?.comments ?? []
 
   const handleLike = (id: number) => {
     const currentLikes = comments.find((c) => c.id === id)?.likes ?? 0
     likeCommentMutate({ id, likes: currentLikes })
   }
-
-  // 댓글 좋아요
-  // const likeComment = async (id, postId) => {
-  //   try {
-  //     const response = await fetch(`/api/comments/${id}`, {
-  //       method: "PATCH",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ likes: comments[postId].find((c) => c.id === id).likes + 1 }),
-  //     })
-  //     const data = await response.json()
-  //     setComments((prev) => ({
-  //       ...prev,
-  //       [postId]: prev[postId].map((comment) =>
-  //         comment.id === data.id ? { ...data, likes: comment.likes + 1 } : comment,
-  //       ),
-  //     }))
-  //   } catch (error) {
-  //     console.error("댓글 좋아요 오류:", error)
-  //   }
-  // }
 
   return (
     <div className="mt-2">

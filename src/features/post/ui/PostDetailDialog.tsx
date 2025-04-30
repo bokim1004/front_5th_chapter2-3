@@ -19,7 +19,7 @@ export function PostDetailDialog() {
         </DialogHeader>
         <div className="space-y-4">
           <p>{HighlightText(selectedPost?.body ?? "", searchQuery)}</p>
-          {CommentList(selectedPost?.id ?? 0)}
+          <CommentList postId={selectedPost?.id ?? 0} />
         </div>
       </DialogContent>
     </Dialog>

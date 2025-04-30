@@ -5,7 +5,9 @@ export interface Comment {
   userId: number
   likes: number
   user: {
+    id: number
     username: string
+    fullName: string
   }
 }
 
@@ -23,4 +25,11 @@ export type UpdateCommentParams = {
 export type DeleteCommentParams = {
   id: number
   postId: number
+}
+
+export interface CommentsResponse {
+  comments: Comment[]
+  total: number
+  skip: number
+  limit: number
 }

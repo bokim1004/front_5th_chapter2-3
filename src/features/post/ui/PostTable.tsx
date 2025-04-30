@@ -8,9 +8,9 @@ import { usePostsByTagQuery } from "@/features/post/api/usePostsByTagQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
-import { TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table"
 import { useQueryClient } from "@tanstack/react-query"
-import { Edit2, MessageSquare, Table, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
+import { Edit2, MessageSquare, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 
 export function PostTable() {
   //TODO isLoading되는 부분 추가 필요
