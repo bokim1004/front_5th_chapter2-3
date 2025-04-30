@@ -19,3 +19,8 @@ export type UpdateCommentParams = {
   id: number
   body: string
 }
+
+export type DeleteCommentParams = {
+  id: number
+  postId: number
+}

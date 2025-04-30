@@ -1,4 +1,5 @@
 import { useCommentStore } from "@/entities/comment/model/CommentStore"
+import { useDeleteComment } from "@/features/comment/api/useCommentDeleteMutation"
 import { Button } from "@/shared/ui/Button"
 import { Edit2, Plus, ThumbsUp, Trash2 } from "lucide-react"
 
@@ -6,18 +7,10 @@ export function CommentList(postId: number) {
   const { setNewComment, setShowAddCommentDialog, setSelectedComment, setShowEditCommentDialog } = useCommentStore()
 
   // 댓글 삭제
-  const deleteComment = async (id, postId) => {
-    try {
-      await fetch(`/api/comments/${id}`, {
-        method: "DELETE",
-      })
-      setComments((prev) => ({
-        ...prev,
-        [postId]: prev[postId].filter((comment) => comment.id !== id),
-      }))
-    } catch (error) {
-      console.error("댓글 삭제 오류:", error)
-    }
+
+  const { mutate: deleteCommentMutate } = useDeleteComment()
+  const handleDelete = (id: number, postId: number) => {
+    deleteCommentMutate({ id, postId })
   }
 
   // 댓글 좋아요
@@ -39,6 +32,7 @@ export function CommentList(postId: number) {
       console.error("댓글 좋아요 오류:", error)
     }
   }
+
   return (
     <div className="mt-2">
       <div className="flex items-center justify-between mb-2">
@@ -76,7 +70,7 @@ export function CommentList(postId: number) {
               >
                 <Edit2 className="w-3 h-3" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => deleteComment(comment.id, postId)}>
+              <Button variant="ghost" size="sm" onClick={() => handleDelete(comment.id, postId)}>
                 <Trash2 className="w-3 h-3" />
               </Button>
             </div>
