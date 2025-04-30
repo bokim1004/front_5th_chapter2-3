@@ -16,6 +16,7 @@ interface PostPaginationStore {
   setSortBy: (value: string) => void
   setSortOrder: (value: "asc" | "desc") => void
   setSelectedTag: (tag: string) => void
+  setStateFromParams: (params: URLSearchParams) => void
 }
 
 export const usePostPaginationStore = create<PostPaginationStore>((set) => ({
@@ -34,4 +35,14 @@ export const usePostPaginationStore = create<PostPaginationStore>((set) => ({
   setSortBy: (value) => set({ sortBy: value }),
   setSortOrder: (value) => set({ sortOrder: value }),
   setSelectedTag: (tag) => set({ selectedTag: tag }),
+  setStateFromParams: (params: URLSearchParams) => {
+    set({
+      skip: parseInt(params.get("skip") || "0"),
+      limit: parseInt(params.get("limit") || "10"),
+      searchQuery: params.get("search") || "",
+      sortBy: params.get("sortBy") || "",
+      sortOrder: (params.get("sortOrder") as "asc" | "desc") || "asc",
+      selectedTag: params.get("tag") || "",
+    })
+  },
 }))

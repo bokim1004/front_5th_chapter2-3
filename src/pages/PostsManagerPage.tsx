@@ -12,14 +12,9 @@ import { Card, CardContent } from "../shared/ui/card"
 
 const PostsManager = () => {
   const location = useLocation()
+  const { setStateFromParams, skip, limit, sortBy, sortOrder, selectedTag } = usePostPaginationStore()
 
   const updateURL = usePostUpdateURL()
-  const { selectedTag, limit, skip, sortBy, sortOrder } = usePostPaginationStore()
-  // const { data, isLoading, isError } = usePostsByTagQuery({
-  //   tag: selectedTag,
-  //   limit,
-  //   skip,
-  // })
 
   useEffect(() => {
     // if (selectedTag) {
@@ -32,12 +27,7 @@ const PostsManager = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
-    setSkip(parseInt(params.get("skip") || "0"))
-    setLimit(parseInt(params.get("limit") || "10"))
-    setSearchQuery(params.get("search") || "")
-    setSortBy(params.get("sortBy") || "")
-    setSortOrder(params.get("sortOrder") || "asc")
-    setSelectedTag(params.get("tag") || "")
+    setStateFromParams(params)
   }, [location.search])
 
   return (

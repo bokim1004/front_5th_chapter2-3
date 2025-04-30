@@ -1,3 +1,4 @@
+import { fetchPostsByTag } from "@/entities/post/api/PostAPI"
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { useTagsQuery } from "@/features/post/api/useTagQuery"
@@ -19,6 +20,8 @@ export function PostSearchFilter() {
     selectedTag,
     setSelectedTag,
     setTotal,
+    limit,
+    skip,
   } = usePostPaginationStore()
 
   const updateURL = usePostUpdateURL()
@@ -65,7 +68,7 @@ export function PostSearchFilter() {
         value={selectedTag}
         onValueChange={(value) => {
           setSelectedTag(value)
-          fetchPostsByTag(value)
+          fetchPostsByTag({ tag: value, limit, skip })
           updateURL()
         }}
       >
