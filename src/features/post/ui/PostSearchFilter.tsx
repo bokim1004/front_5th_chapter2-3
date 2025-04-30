@@ -25,12 +25,7 @@ export function PostSearchFilter() {
 
   const updateURL = usePostUpdateURL()
   const { data: tags = [] } = useTagsQuery()
-  const {
-    data: searchData,
-    isLoading: isSearchLoading,
-    isError: isSearchError,
-    error: searchError,
-  } = usePostSearchQuery(searchQuery)
+  const { data: searchData } = usePostSearchQuery(searchQuery)
   //게시물 검색시 변경되는지 확인 필요
   //  setPosts(data.posts)
   //setTotal(data.total)
@@ -40,13 +35,6 @@ export function PostSearchFilter() {
       setTotal(searchData.total)
     }
   }, [searchData?.total])
-
-  // if (isTagsLoading || isSearchLoading) {
-  //   return <Loading />
-  // }
-  // if (isSearchError) {
-  //   return console.error("게시물 검색 오류:", searchError)
-  // }
 
   return (
     <div className="flex gap-4">

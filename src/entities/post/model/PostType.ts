@@ -17,3 +17,10 @@ export interface Tag {
   url: string
   slug: string
 }
+
+export interface PostResponse {
+  posts: Post[]
+  total: number
+  skip: number
+  limit: number
+}
