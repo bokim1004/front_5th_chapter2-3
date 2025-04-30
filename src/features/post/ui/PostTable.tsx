@@ -13,7 +13,8 @@ import { useQueryClient } from "@tanstack/react-query"
 import { Edit2, MessageSquare, Table, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 
 export function PostTable() {
-  const { selectedTag, setSelectedTag, searchQuery, limit, skip, sortBy, sortOrder } = usePostPaginationStore()
+  //TODO isLoading되는 부분 추가 필요
+  const { selectedTag, setSelectedTag, searchQuery, limit, skip } = usePostPaginationStore()
   const { setSelectedPost, setShowEditDialog, setShowPostDetailDialog } = usePostStore()
   const { setShowUserModal, setSelectedUser } = useUserStore()
   const updateURL = usePostUpdateURL()

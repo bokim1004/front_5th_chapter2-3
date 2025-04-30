@@ -13,3 +13,7 @@ export interface Post {
 }
 
 export type PostWithAuthor = Post & { author?: User }
+export interface Tag {
+  url: string
+  slug: string
+}

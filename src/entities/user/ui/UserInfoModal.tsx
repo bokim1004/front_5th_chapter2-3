@@ -1,7 +1,7 @@
 import { useUserStore } from "@/entities/user/model/UserStore"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 
-function UserInfoModal() {
+export function UserInfoModal() {
   const { showUserModal, setShowUserModal, selectedUser } = useUserStore()
   return (
     <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
@@ -38,4 +38,3 @@ function UserInfoModal() {
     </Dialog>
   )
 }
-export default UserInfoModal

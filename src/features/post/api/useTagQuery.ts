@@ -1,10 +1,6 @@
 import { fetchTags } from "@/entities/post/api/PostAPI"
+import { Tag } from "@/entities/post/model/PostType"
 import { useQuery } from "@tanstack/react-query"
-
-interface Tag {
-  url: string
-  slug: string
-}
 
 export const useTagsQuery = () => {
   return useQuery<Tag[]>({

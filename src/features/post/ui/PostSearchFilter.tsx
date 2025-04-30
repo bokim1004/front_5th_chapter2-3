@@ -24,8 +24,7 @@ export function PostSearchFilter() {
   } = usePostPaginationStore()
 
   const updateURL = usePostUpdateURL()
-  const { data: tags = [], isLoading: isTagsLoading } = useTagsQuery()
-
+  const { data: tags = [] } = useTagsQuery()
   const {
     data: searchData,
     isLoading: isSearchLoading,

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 
-import UserInfoModal from "@/entities/user/ui/UserInfoModal"
+import { UserInfoModal } from "@/entities/user/ui/UserInfoModal"
 import { CommentAddDialog, CommentEditDialog } from "@/features/comment/ui"
 import { PostAddCardHeader, PostAddDialog, PostDetailDialog, PostEditDialog } from "@/features/post/ui"
 
