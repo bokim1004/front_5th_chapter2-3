@@ -9,8 +9,13 @@ export interface Comment {
   }
 }
 
-export interface NewComment {
+export type NewComment = {
   body: string
   postId: number | null
   userId: number
+}
+
+export type UpdateCommentParams = {
+  id: number
+  body: string
 }

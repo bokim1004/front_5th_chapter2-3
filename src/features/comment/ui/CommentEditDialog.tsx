@@ -1,4 +1,5 @@
 import { useCommentStore } from "@/entities/comment/model/CommentStore"
+import { useUpdateCommentMutation } from "@/features/comment/api/useCommentUpdateMutation"
 import { Button } from "@/shared/ui/Button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/dialog"
 import { Textarea } from "@/shared/ui/TextArea"
@@ -10,22 +11,26 @@ export function CommentEditDialog() {
   const { showEditCommentDialog, setShowEditCommentDialog, selectedComment, setSelectedComment } = useCommentStore()
 
   // 댓글 업데이트
-  const updateComment = async () => {
-    try {
-      const response = await fetch(`/api/comments/${Number(selectedComment?.id)}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body: selectedComment?.body ?? "" }),
-      })
-      const data = await response.json()
-      setComments((prev) => ({
-        ...prev,
-        [data.postId]: prev[data.postId].map((comment) => (comment.id === data.id ? data : comment)),
-      }))
-      setShowEditCommentDialog(false)
-    } catch (error) {
-      console.error("댓글 업데이트 오류:", error)
-    }
+
+  const { mutate: updateCommentMutate } = useUpdateCommentMutation()
+
+  const handleUpdateComment = () => {
+    if (!selectedComment?.id) return
+
+    updateCommentMutate(
+      {
+        id: selectedComment.id,
+        body: selectedComment.body ?? "",
+      },
+      {
+        onSuccess: () => {
+          setShowEditCommentDialog(false)
+        },
+        onError: (error) => {
+          console.error("댓글 업데이트 오류:", error)
+        },
+      },
+    )
   }
 
   return (
@@ -38,9 +43,9 @@ export function CommentEditDialog() {
           <Textarea
             placeholder="댓글 내용"
             value={selectedComment?.body || ""}
-            onChange={(e) => setSelectedComment({ ...selectedComment, body: e.target.value })}
+            onChange={(e) => setSelectedComment({ ...selectedComment!, body: e.target.value })}
           />
-          <Button onClick={updateComment}>댓글 업데이트</Button>
+          <Button onClick={handleUpdateComment}>댓글 업데이트</Button>
         </div>
       </DialogContent>
     </Dialog>
