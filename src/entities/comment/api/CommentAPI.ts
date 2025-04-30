@@ -1,4 +1,5 @@
 import {
+  Comment,
   CommentsResponse,
   DeleteCommentParams,
   NewComment,
@@ -7,7 +8,7 @@ import {
 import { axiosInstance } from "@/shared/api/axiosInstance"
 import axios from "axios"
 
-export const addComment = async (newComment: NewComment) => {
+export const addComment = async (newComment: NewComment): Promise<Comment> => {
   const response = await axiosInstance.post("/api/comments/add", newComment)
   return response.data
 }

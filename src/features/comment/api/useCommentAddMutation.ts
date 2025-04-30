@@ -1,4 +1,5 @@
 import { addComment } from "@/entities/comment/api/CommentAPI"
+import { Comment } from "@/entities/comment/model/CommentType"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 export const useAddCommentMutation = () => {
@@ -7,7 +8,7 @@ export const useAddCommentMutation = () => {
   return useMutation({
     mutationFn: addComment,
     onSuccess: (newComment) => {
-      queryClient.setQueryData(["comments", newComment.postId], (old: Comment[]) => {
+      queryClient.setQueryData<Comment[] | undefined>(["comments", newComment.postId], (old) => {
         return [...(old || []), newComment]
       })
     },
