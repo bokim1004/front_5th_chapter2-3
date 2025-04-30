@@ -4,7 +4,6 @@ import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { useTagsQuery } from "@/features/post/api/useTagQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { Input } from "@/shared/ui/Input"
-import { Loading } from "@/shared/ui/Loading"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { Search } from "lucide-react"
 import { useEffect } from "react"
@@ -43,12 +42,12 @@ export function PostSearchFilter() {
     }
   }, [searchData?.total])
 
-  if (isTagsLoading || isSearchLoading) {
-    return <Loading />
-  }
-  if (isSearchError) {
-    return console.error("게시물 검색 오류:", searchError)
-  }
+  // if (isTagsLoading || isSearchLoading) {
+  //   return <Loading />
+  // }
+  // if (isSearchError) {
+  //   return console.error("게시물 검색 오류:", searchError)
+  // }
 
   return (
     <div className="flex gap-4">

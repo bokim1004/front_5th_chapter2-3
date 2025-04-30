@@ -1,7 +1,10 @@
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { usePostStore } from "@/entities/post/model/PostStore"
+import { Post, PostWithAuthor } from "@/entities/post/model/PostType"
 import { useUserStore } from "@/entities/user/model/UserStore"
 import { User } from "@/entities/user/model/UserType"
+import { useDeletePost } from "@/features/post/api/usePostDeleteMutation"
+import { usePostsByTagQuery } from "@/features/post/api/usePostsByTagQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
@@ -28,29 +31,26 @@ export function PostTable() {
   // }
 
   // 게시물 상세 보기
-  const openPostDetail = (post) => {
+  const openPostDetail = (post: Post) => {
     setSelectedPost(post)
     // fetchComments(post.id)
     setShowPostDetailDialog(true)
   }
 
   // 사용자 모달 열기
-  const openUserModal = async (user: { id: number }) => {
+  const openUserModal = async (user: User) => {
     const userData = queryClient.getQueryData<User>(["user", user.id])
     setSelectedUser(userData!)
     setShowUserModal(true)
   }
 
-  // 게시물 삭제
-  const deletePost = async (id) => {
-    try {
-      await fetch(`/api/posts/${id}`, {
-        method: "DELETE",
-      })
-      setPosts(posts.filter((post) => post.id !== id))
-    } catch (error) {
-      console.error("게시물 삭제 오류:", error)
-    }
+  const { mutate: deletePostMutate } = useDeletePost()
+
+  const { data } = usePostsByTagQuery({ tag: selectedTag, limit, skip })
+  const posts: PostWithAuthor[] = data?.posts ?? []
+
+  const handleDeletePost = (id: number) => {
+    deletePostMutate(id)
   }
 
   return (
@@ -65,7 +65,7 @@ export function PostTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <TableRow key={post.id}>
             <TableCell>{post.id}</TableCell>
             <TableCell>
@@ -93,7 +93,7 @@ export function PostTable() {
               </div>
             </TableCell>
             <TableCell>
-              <div className="flex items-center space-x-2 cursor-pointer" onClick={() => openUserModal(post.author)}>
+              <div className="flex items-center space-x-2 cursor-pointer" onClick={() => openUserModal(post.author!)}>
                 <img src={post.author?.image} alt={post.author?.username} className="w-8 h-8 rounded-full" />
                 <span>{post.author?.username}</span>
               </div>
@@ -121,7 +121,7 @@ export function PostTable() {
                 >
                   <Edit2 className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => deletePost(post.id)}>
+                <Button variant="ghost" size="sm" onClick={() => handleDeletePost(Number(post.id))}>
                   <Trash2 className="w-4 h-4" />
                 </Button>
               </div>

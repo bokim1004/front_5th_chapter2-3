@@ -1,4 +1,4 @@
-import { Post } from "@/entities/post/model/PostType"
+import { Post, PostWithAuthor } from "@/entities/post/model/PostType"
 import { getUsers } from "@/entities/user/api/UserAPI"
 import { axiosInstance } from "@/shared/api/axiosInstance"
 import axios from "axios"
@@ -35,6 +35,11 @@ export const getPosts = async ({ limit, skip }: { limit: number; skip: number })
   return response.data
 }
 
+export const deletePost = async (id: number): Promise<void> => {
+  const response = await axiosInstance.delete(`/api/posts/${id}`)
+  return response.data
+}
+
 export const getPostsByTag = async (tag: string) => {
   const response = await axios.get<{
     total: number
@@ -42,6 +47,7 @@ export const getPostsByTag = async (tag: string) => {
   }>(`/api/posts/tag/${tag}`)
   return response.data
 }
+
 // 게시물 가져오기
 const fetchPosts = async ({ limit, skip }: { limit: number; skip: number }) => {
   const [postsRes, user] = await Promise.all([getPosts({ limit, skip }), getUsers()])
@@ -57,14 +63,22 @@ const fetchPosts = async ({ limit, skip }: { limit: number; skip: number }) => {
   }
 }
 // 태그별 게시물 가져오기
-export const fetchPostsByTag = async ({ tag, limit, skip }: { tag: string; limit: number; skip: number }) => {
+export const fetchPostsByTag = async ({
+  tag,
+  limit,
+  skip,
+}: {
+  tag: string
+  limit: number
+  skip: number
+}): Promise<{ posts: PostWithAuthor[]; total: number }> => {
   if (!tag || tag === "all") {
     return fetchPosts({ limit, skip })
   }
 
   const [postsRes, users] = await Promise.all([getPostsByTag(tag), getUsers()])
 
-  const postsWithUsers = postsRes.posts.map((post) => ({
+  const postsWithUsers = postsRes.posts.map((post: Post) => ({
     ...post,
     author: users.find((user) => user.id === post.userId),
   }))
