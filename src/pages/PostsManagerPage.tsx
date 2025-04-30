@@ -16,7 +16,6 @@ const PostsManager = () => {
   const [posts, setPosts] = useState([])
 
   const [loading, setLoading] = useState(false)
-  const [comments, setComments] = useState({})
 
   const updateURL = usePostUpdateURL()
 
@@ -33,6 +32,7 @@ const PostsManager = () => {
         return fetch("/api/users?limit=0&select=username,image")
       })
       .then((response) => response.json())
+
       .then((users) => {
         usersData = users.users
         const postsWithUsers = postsData.posts.map((post) => ({

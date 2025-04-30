@@ -1,37 +1,50 @@
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
+import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { useTagsQuery } from "@/features/post/api/useTagQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { Input } from "@/shared/ui/Input"
 import { Loading } from "@/shared/ui/Loading"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { Search } from "lucide-react"
+import { useEffect } from "react"
 
 export function PostSearchFilter() {
-  const { searchQuery, setSearchQuery, sortBy, setSortBy, sortOrder, setSortOrder, selectedTag, setSelectedTag } =
-    usePostPaginationStore()
+  const {
+    searchQuery,
+    setSearchQuery,
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+    selectedTag,
+    setSelectedTag,
+    setTotal,
+  } = usePostPaginationStore()
 
   const updateURL = usePostUpdateURL()
-  const { data: tags = [], isLoading } = useTagsQuery()
-  if (isLoading) {
+  const { data: tags = [], isLoading: isTagsLoading } = useTagsQuery()
+
+  const {
+    data: searchData,
+    isLoading: isSearchLoading,
+    isError: isSearchError,
+    error: searchError,
+  } = usePostSearchQuery(searchQuery)
+  //게시물 검색시 변경되는지 확인 필요
+  //  setPosts(data.posts)
+  //setTotal(data.total)
+
+  useEffect(() => {
+    if (searchData?.total !== undefined) {
+      setTotal(searchData.total)
+    }
+  }, [searchData?.total])
+
+  if (isTagsLoading || isSearchLoading) {
     return <Loading />
   }
-
-  // 게시물 검색
-  const searchPosts = async () => {
-    if (!searchQuery) {
-      fetchPosts()
-      return
-    }
-    setLoading(true)
-    try {
-      const response = await fetch(`/api/posts/search?q=${searchQuery}`)
-      const data = await response.json()
-      setPosts(data.posts)
-      setTotal(data.total)
-    } catch (error) {
-      console.error("게시물 검색 오류:", error)
-    }
-    setLoading(false)
+  if (isSearchError) {
+    return console.error("게시물 검색 오류:", searchError)
   }
 
   return (
@@ -44,7 +57,7 @@ export function PostSearchFilter() {
             className="pl-8"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && searchPosts()}
+            // onKeyDown={(e) => e.key === "Enter" && searchPosts()}
           />
         </div>
       </div>

@@ -20,3 +20,8 @@ export const updatePost = async (post: Post) => {
   const response = await axiosInstance.put(`/api/posts/${post.id}`, post)
   return response.data
 }
+
+export const searchPosts = async (query: string) => {
+  const response = await axiosInstance.get(`/api/posts/search?q=${query}`)
+  return response.data
+}
