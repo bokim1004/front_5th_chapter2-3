@@ -21,17 +21,6 @@ export function PostTable() {
   const { setShowUserModal, setSelectedUser } = useUserStore()
   const updateURL = usePostUpdateURL()
   const queryClient = useQueryClient()
-  // 댓글 가져오기 => 여기서 호출 필요없음
-  // const fetchComments = async (postId) => {
-  //   if (comments[postId]) return // 이미 불러온 댓글이 있으면 다시 불러오지 않음
-  //   try {
-  //     const response = await fetch(`/api/comments/post/${postId}`)
-  //     const data = await response.json()
-  //     setComments((prev) => ({ ...prev, [postId]: data.comments }))
-  //   } catch (error) {
-  //     console.error("댓글 가져오기 오류:", error)
-  //   }
-  // }
 
   // 게시물 상세 보기
   const openPostDetail = (post: Post) => {
@@ -56,7 +45,6 @@ export function PostTable() {
     return <Loading />
   }
 
-  console.log("search", searchData, tagData)
   const handleDeletePost = (id: number) => {
     deletePostMutate(id)
   }
