@@ -14,6 +14,7 @@ export interface Comment {
 export type NewComment = {
   body: string
   postId: number | null
+  likes: number
   userId: number
 }
 

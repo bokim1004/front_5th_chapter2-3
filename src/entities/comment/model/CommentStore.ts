@@ -5,6 +5,7 @@ interface CommentStore {
   newComment: {
     body: string
     postId: number | null
+    likes: number
     userId: number
   }
   selectedComment: Comment | null
@@ -20,6 +21,7 @@ interface CommentStore {
 export const useCommentStore = create<CommentStore>((set) => ({
   newComment: {
     body: "",
+    likes: 0,
     postId: null,
     userId: 1,
   },

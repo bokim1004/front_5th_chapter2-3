@@ -22,11 +22,14 @@ export function CommentList({ postId }: { postId: number }) {
   const { mutate: likeCommentMutate } = useLikeComment()
 
   const { data: comments = [] } = useComments(postId)
+  console.log("post", postId)
+  console.log("comment", comments)
 
   const handleLike = (id: number) => {
+    console.log("id", id)
     const currentLikes = comments.find((c) => c.id === id)?.likes ?? 0
 
-    likeCommentMutate({ id, likes: currentLikes })
+    likeCommentMutate({ id, likes: currentLikes, postId })
   }
 
   return (

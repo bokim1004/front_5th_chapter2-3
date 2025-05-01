@@ -7,11 +7,13 @@ export const useLikeComment = () => {
 
   return useMutation({
     mutationFn: likeComment,
-    onSuccess: (updatedComment) => {
-      const postId = updatedComment.postId
+    onSuccess: (updatedComment, variables) => {
+      const { postId, id } = variables
+
+      // const postId = updatedComment.postId
 
       queryClient.setQueryData<Comment[] | undefined>(["comments", postId], (oldComments) =>
-        oldComments?.map((comment) => (comment.id === updatedComment.id ? updatedComment : comment)),
+        oldComments?.map((comment) => (comment.id === id ? { ...comment, likes: updatedComment.likes } : comment)),
       )
     },
     onError: (error) => {

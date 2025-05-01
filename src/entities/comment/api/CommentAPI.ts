@@ -9,10 +9,7 @@ import { axiosInstance } from "@/shared/api/axiosInstance"
 import axios from "axios"
 
 export const addComment = async (newComment: NewComment): Promise<Comment> => {
-  const response = await axiosInstance.post("/api/comments/add", {
-    ...newComment,
-    likes: 0,
-  })
+  const response = await axiosInstance.post("/api/comments/add", newComment)
   return response.data
 }
 
@@ -26,11 +23,11 @@ export const deleteComment = async ({ id }: DeleteCommentParams) => {
   return response.data
 }
 
-export const likeComment = async ({ id, likes }: { id: number; likes: number }) => {
-  const response = await axiosInstance.patch(`/api/comments/${id}`, {
+export const likeComment = async ({ id, likes, postId }: { id: number; likes: number; postId: number }) => {
+  await axiosInstance.patch(`/api/comments/${id}`, {
     likes: likes + 1,
   })
-  return response.data
+  return { id, postId, likes: likes + 1 }
 }
 
 export const fetchComments = async (postId: number): Promise<CommentsResponse> => {

@@ -8,8 +8,10 @@ export const useAddCommentMutation = () => {
   return useMutation({
     mutationFn: addComment,
     onSuccess: (newComment) => {
+      const safeComment: Comment = { ...newComment, likes: 0 }
+
       queryClient.setQueryData<Comment[] | undefined>(["comments", newComment.postId], (old) => {
-        return [...(old || []), newComment]
+        return [...(old || []), safeComment]
       })
     },
   })
