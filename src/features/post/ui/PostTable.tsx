@@ -1,10 +1,11 @@
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { usePostStore } from "@/entities/post/model/PostStore"
-import { Post, PostWithAuthor } from "@/entities/post/model/PostType"
+import { Post } from "@/entities/post/model/PostType"
 import { useUserStore } from "@/entities/user/model/UserStore"
 import { User } from "@/entities/user/model/UserType"
 import { useDeletePost } from "@/features/post/api/usePostDeleteMutation"
 import { usePostsByTagQuery } from "@/features/post/api/usePostsByTagQuery"
+import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
@@ -15,6 +16,7 @@ import { Edit2, MessageSquare, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react
 export function PostTable() {
   //TODO isLoading되는 부분 추가 필요
   const { selectedTag, setSelectedTag, searchQuery, limit, skip } = usePostPaginationStore()
+
   const { setSelectedPost, setShowEditDialog, setShowPostDetailDialog } = usePostStore()
   const { setShowUserModal, setSelectedUser } = useUserStore()
   const updateURL = usePostUpdateURL()
@@ -46,9 +48,10 @@ export function PostTable() {
   }
 
   const { mutate: deletePostMutate } = useDeletePost()
+  const { data: searchData } = usePostSearchQuery(searchQuery)
+  const { data: tagData } = usePostsByTagQuery({ tag: selectedTag, limit, skip })
 
-  const { data } = usePostsByTagQuery({ tag: selectedTag, limit, skip })
-  const posts: PostWithAuthor[] = data?.posts ?? []
+  const posts = searchQuery.trim() ? (searchData?.posts ?? []) : (tagData?.posts ?? [])
 
   const handleDeletePost = (id: number) => {
     deletePostMutate(id)

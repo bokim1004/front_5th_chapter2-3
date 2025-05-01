@@ -1,12 +1,10 @@
 import { fetchPostsByTag } from "@/entities/post/api/PostAPI"
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
-import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { useTagsQuery } from "@/features/post/api/useTagQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { Input } from "@/shared/ui/Input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { Search } from "lucide-react"
-import { useEffect } from "react"
 
 export function PostSearchFilter() {
   const {
@@ -18,23 +16,23 @@ export function PostSearchFilter() {
     setSortOrder,
     selectedTag,
     setSelectedTag,
-    setTotal,
+
     limit,
     skip,
   } = usePostPaginationStore()
 
   const updateURL = usePostUpdateURL()
   const { data: tags = [] } = useTagsQuery()
-  const { data: searchData } = usePostSearchQuery(searchQuery)
+
   //게시물 검색시 변경되는지 확인 필요
   //  setPosts(data.posts)
   //setTotal(data.total)
 
-  useEffect(() => {
-    if (searchData?.total !== undefined) {
-      setTotal(searchData.total)
-    }
-  }, [searchData?.total])
+  // useEffect(() => {
+  //   if (searchData?.total !== undefined) {
+  //     setTotal(searchData.total)
+  //   }
+  // }, [searchData?.total])
 
   return (
     <div className="flex gap-4">

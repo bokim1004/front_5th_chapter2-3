@@ -5,6 +5,7 @@ export const usePostsByTagQuery = ({ tag, limit, skip }: { tag: string; limit: n
   return useQuery({
     queryKey: ["posts", tag, limit, skip],
     queryFn: () => fetchPostsByTag({ tag, limit, skip }),
-    staleTime: 1000 * 30,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
   })
 }

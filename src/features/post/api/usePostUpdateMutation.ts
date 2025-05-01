@@ -7,7 +7,7 @@ export const usePostUpdateMutation = () => {
   return useMutation({
     mutationFn: updatePost,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] })
+      queryClient.invalidateQueries({ queryKey: ["posts"], exact: false })
     },
     onError: (error) => {
       console.error("게시물 업데이트 오류:", error)

@@ -27,6 +27,7 @@ export const searchPosts = async (query: string) => {
   return response.data
 }
 
+//post 전체 조회
 export const getPosts = async ({ limit, skip }: { limit: number; skip: number }) => {
   const response = await axios.get<{
     total: number
@@ -40,6 +41,7 @@ export const deletePost = async (id: number): Promise<void> => {
   return response.data
 }
 
+//태그별 조회
 export const getPostsByTag = async (tag: string) => {
   const response = await axios.get<{
     total: number
@@ -62,7 +64,7 @@ const fetchPosts = async ({ limit, skip }: { limit: number; skip: number }) => {
     total: postsRes.total,
   }
 }
-// 태그별 게시물 가져오기
+// 태그별 게시물 가져오기 - 통합
 export const fetchPostsByTag = async ({
   tag,
   limit,

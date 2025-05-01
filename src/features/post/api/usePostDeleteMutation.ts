@@ -9,7 +9,6 @@ export const useDeletePost = () => {
   return useMutation({
     mutationFn: deletePost,
     onSuccess: (_data, deletedId) => {
-      console.log("DDD", _data)
       queryClient.setQueryData<PostResponse>(["posts", selectedTag, limit, skip], (old) =>
         old
           ? {
