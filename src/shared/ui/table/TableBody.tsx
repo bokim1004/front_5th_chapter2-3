@@ -5,5 +5,5 @@ interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> {
 }
 
 export const TableBody = ({ className = "", ...props }: TableBodyProps) => {
-  return <tbody className={`[&_tr:last-child]:border-0 ${className}`} {...props} />
+  return <tbody id="post-list" className={`[&_tr:last-child]:border-0 ${className}`} {...props} />
 }

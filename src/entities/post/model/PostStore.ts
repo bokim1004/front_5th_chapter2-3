@@ -1,14 +1,14 @@
 import { create } from "zustand"
-import { Post } from "./PostType"
+import { Post, PostWithAuthor } from "./PostType"
 
 interface PostStore {
-  newPost: Post
+  newPost: PostWithAuthor
   selectedPost: Post | null
   showAddDialog: boolean
   showEditDialog: boolean
   showPostDetailDialog: boolean
 
-  setNewPost: (post: Post) => void
+  setNewPost: (post: PostWithAuthor) => void
   setSelectedPost: (post: Post | null) => void
   setShowAddDialog: (visible: boolean) => void
   setShowEditDialog: (visible: boolean) => void

@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "@testing-library/jest-dom"
-import { render, screen, waitFor } from "@testing-library/react"
+import { usePostPaginationStore } from "../src/entities/post/model/PostPaginationStore"
+
+import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { http, HttpResponse } from "msw"
 import { setupServer } from "msw/node"
@@ -57,6 +59,13 @@ const renderPostsManager = () => {
   )
 }
 
+afterEach(() => {
+  cleanup()
+  // searchQuery 상태 초기화 추가
+  const { setSearchQuery } = usePostPaginationStore.getState()
+  setSearchQuery("")
+})
+
 describe("PostsManager", () => {
   it("게시물을 렌더링하고 검색을 허용합니다", async () => {
     const user = userEvent.setup()
@@ -109,6 +118,7 @@ describe("PostsManager", () => {
     await waitFor(() => {
       TEST_POSTS.posts.forEach((post) => {
         expect(screen.getByText(post.title)).toBeInTheDocument()
+        console.log(post.title)
       })
     })
 

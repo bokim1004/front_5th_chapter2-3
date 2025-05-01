@@ -1,6 +1,6 @@
 import { usePostPaginationStore } from "@/entities/post/model/PostPaginationStore"
 import { usePostStore } from "@/entities/post/model/PostStore"
-import { Post } from "@/entities/post/model/PostType"
+import { Post, PostWithAuthor } from "@/entities/post/model/PostType"
 import { useUserStore } from "@/entities/user/model/UserStore"
 import { User } from "@/entities/user/model/UserType"
 import { useDeletePost } from "@/features/post/api/usePostDeleteMutation"
@@ -9,12 +9,12 @@ import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
 import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
+import { Loading } from "@/shared/ui/Loading"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table"
 import { useQueryClient } from "@tanstack/react-query"
 import { Edit2, MessageSquare, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 
 export function PostTable() {
-  //TODO isLoading되는 부분 추가 필요
   const { selectedTag, setSelectedTag, searchQuery, limit, skip } = usePostPaginationStore()
 
   const { setSelectedPost, setShowEditDialog, setShowPostDetailDialog } = usePostStore()
@@ -48,11 +48,15 @@ export function PostTable() {
   }
 
   const { mutate: deletePostMutate } = useDeletePost()
-  const { data: searchData } = usePostSearchQuery(searchQuery)
-  const { data: tagData } = usePostsByTagQuery({ tag: selectedTag, limit, skip })
+  const { data: searchData, isLoading: isSearchLoading } = usePostSearchQuery(searchQuery)
+  const { data: tagData, isLoading: isTagLoading } = usePostsByTagQuery({ tag: selectedTag, limit, skip })
 
-  const posts = searchQuery.trim() ? (searchData?.posts ?? []) : (tagData?.posts ?? [])
+  const posts: PostWithAuthor[] = searchQuery.trim() ? (searchData?.posts ?? []) : (tagData?.posts ?? [])
+  if (isSearchLoading || isTagLoading) {
+    return <Loading />
+  }
 
+  console.log("search", searchData, tagData)
   const handleDeletePost = (id: number) => {
     deletePostMutate(id)
   }
