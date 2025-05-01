@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/ui/di
 
 export function UserInfoModal() {
   const { showUserModal, setShowUserModal, selectedUser } = useUserStore()
+
   return (
     <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
       <DialogContent>

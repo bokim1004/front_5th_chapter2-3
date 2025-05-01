@@ -7,11 +7,12 @@ import { useDeletePost } from "@/features/post/api/usePostDeleteMutation"
 import { usePostsByTagQuery } from "@/features/post/api/usePostsByTagQuery"
 import { usePostSearchQuery } from "@/features/post/api/usePostSearchQuery"
 import { usePostUpdateURL } from "@/features/post/model/usePostUpdateURL"
+import { getUserSafely } from "@/features/user/api/getUserSafely"
+
 import { HighlightText } from "@/shared/lib/HighlightText"
 import { Button } from "@/shared/ui/Button"
 import { Loading } from "@/shared/ui/Loading"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table"
-import { useQueryClient } from "@tanstack/react-query"
 import { Edit2, MessageSquare, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react"
 
 export function PostTable() {
@@ -20,7 +21,6 @@ export function PostTable() {
   const { setSelectedPost, setShowEditDialog, setShowPostDetailDialog } = usePostStore()
   const { setShowUserModal, setSelectedUser } = useUserStore()
   const updateURL = usePostUpdateURL()
-  const queryClient = useQueryClient()
 
   // 게시물 상세 보기
   const openPostDetail = (post: Post) => {
@@ -28,10 +28,9 @@ export function PostTable() {
     // fetchComments(post.id)
     setShowPostDetailDialog(true)
   }
-
   // 사용자 모달 열기
   const openUserModal = async (user: User) => {
-    const userData = queryClient.getQueryData<User>(["user", user.id])
+    const userData = await getUserSafely(user.id)
     setSelectedUser(userData!)
     setShowUserModal(true)
   }
