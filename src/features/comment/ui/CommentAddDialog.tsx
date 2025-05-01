@@ -13,9 +13,8 @@ export function CommentAddDialog() {
   const handleAddComment = () => {
     addCommentMutate(newComment, {
       onSuccess: () => {
-        console.log("1", newComment)
         setShowAddCommentDialog(false)
-        //setNewComment({ body: "", postId: null, likes: 0, userId: 1 })
+        setNewComment({ body: "", postId: null, likes: 0, userId: 1 })
       },
       onError: (error) => {
         console.error("댓글 추가 오류:", error)

@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react"
 import path from "path"
-import { defineConfig } from "vite"
+import { defineConfig, Plugin } from "vite"
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base,
-    plugins: [react()],
+    plugins: [react(), replaceAPI()],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
@@ -27,3 +27,14 @@ export default defineConfig(({ mode }) => {
     },
   }
 })
+
+function replaceAPI(): Plugin {
+  return {
+    name: "api-replace",
+    transform(code, id) {
+      if (id.endsWith(".ts") || id.endsWith(".js")) {
+        return code.replace(/(["'`])\/api/g, `$1https://dummyjson.com`)
+      }
+    },
+  }
+}
